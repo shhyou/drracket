@@ -17,9 +17,9 @@ jobs:
           distribution: full
           variant: ${{ matrix.racket-variant }}
           version: ${{ matrix.racket-version }}
-      - run: mkdir ~/.racket/
-      - run: chmod -R a+w ~/.racket/
-      - name: Setup catalog for local checkout
+      - name: Check Racket version
+        run: racket -v
+      - name: Setup catalog and install dependencies
         run: |
              sudo raco pkg install --auto -i --no-setup --skip-installed drracket-test drracket-tool-test
              racket -l- pkg/dirs-catalog --link --check-metadata pkgs-catalog .
@@ -27,11 +27,9 @@ jobs:
              raco pkg config catalogs >> catalog-config.txt
              sudo raco pkg config --set catalogs `cat catalog-config.txt`
              sudo raco pkg update -i --auto --no-setup drracket/ drracket-test/ drracket-tool/ drracket-tool-test/ drracket-tool-lib/ drracket-tool-doc/ drracket-plugin-lib/
-      - name: Check Racket version and installed packages
-        run: |
-          racket -v-
-          raco pkg show -l
-      - name: Checking dependency declaration(s)
+      - name: Build DrRacket
         run: sudo raco setup --check-pkg-deps drracket tests/drracket
+      - name: Check installed packages
+        run: raco pkg show -a
       - run: xvfb-run -a raco test -e -l tests/drracket/module-lang-test
       - run: xvfb-run -a raco test -e -l tests/drracket/syncheck-test
