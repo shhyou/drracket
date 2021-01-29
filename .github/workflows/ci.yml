@@ -21,7 +21,6 @@ jobs:
         run: racket -v
       - name: Setup catalog and build DrRacket
         run: |
-             raco pkg install --auto compiler-lib
              raco pkg install --auto -i --no-setup --skip-installed drracket-test drracket-tool-test
              racket -l- pkg/dirs-catalog --link --check-metadata pkgs-catalog .
              echo file://`pwd`/pkgs-catalog/ > catalog-config.txt
