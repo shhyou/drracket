@@ -29,7 +29,7 @@ jobs:
              raco pkg config catalogs >> catalog-config.txt
              sudo raco pkg config --set catalogs `cat catalog-config.txt`
              sudo raco pkg update -i --auto --no-setup drracket/ drracket-test/ drracket-tool/ drracket-tool-test/ drracket-tool-lib/ drracket-tool-doc/ drracket-plugin-lib/
-             raco setup --check-pkg-deps drracket tests/drracket
+             sudo raco setup --check-pkg-deps drracket tests/drracket
       - name: Check installed packages
         run: raco pkg show -a
       - run: xvfb-run -a raco test -e -l tests/drracket/module-lang-test
