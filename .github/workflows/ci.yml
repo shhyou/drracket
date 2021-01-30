@@ -33,12 +33,6 @@ jobs:
       - run: sudo raco setup --check-pkg-deps drracket tests/drracket
       - name: Check installed packages
         run: raco pkg show -a
-      - name: Running compilation and instrumentation tests
-        run: |
-          xvfb-run -a raco test -e --heartbeat --timeout 1800 -l \
-            tests/drracket/populate-compiled \
-            tests/drracket/online-compilation-zo-creation \
-            tests/drracket/errortrace-stacks
       - run: |
           xvfb-run -a raco test -e --heartbeat --timeout 600 -l \
             tests/drracket/language-test
@@ -74,5 +68,11 @@ jobs:
           xvfb-run -a raco test -e -l \
             tests/drracket/syncheck-test \
             tests/drracket/syncheck-eval-compile-time
+      - name: Running compilation and instrumentation tests
+        run: |
+          xvfb-run -a raco test -e --timeout 300 -l \
+            tests/drracket/errortrace-stacks \
+            tests/drracket/online-compilation-zo-creation \
+            tests/drracket/populate-compiled
       - name: Testing drracket-tool-lib
         run: xvfb-run -a raco test -e -p drracket-tool-test
