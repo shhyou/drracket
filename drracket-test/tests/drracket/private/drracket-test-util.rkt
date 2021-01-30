@@ -43,8 +43,15 @@
            has-error?
            run-one/sync
            alt-return-in-interactions
-           wait-for-online-compilation-to-finish)
+           wait-for-online-compilation-to-finish
+
+           log-drracket:test-debug
+           log-drracket:test-info
+           log-drracket:test-warning
+           log-drracket:test-error
+           log-drracket:test-fatal)
   
+  (define-logger drracket:test)
   ;; save-drracket-window-as : string -> void
   ;; use the "save as" dialog in drracket to save the definitions
   ;; window to a file.

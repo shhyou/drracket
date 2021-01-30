@@ -33,11 +33,11 @@ jobs:
       - name: Check installed packages
         run: raco pkg show -a
       - run: |
-          xvfb-run -a raco test -e --timeout 600 -l \
+          xvfb-run -a raco test -e --timeout 2400 -l \
             tests/drracket/language-test
       - name: Running snip tests
         run: |
-          xvfb-run -a raco test -e --heartbeat --timeout 300 -l \
+          xvfb-run -a raco test -e --timeout 600 -l \
             tests/drracket/snip-run-all \
             tests/drracket/snips
       - name: Running editor UI tests
