@@ -32,13 +32,6 @@ jobs:
       - run: sudo raco setup
       - name: Check installed packages
         run: raco pkg show -a
-      - name: Running REPL tests
-        run: |
-          xvfb-run -a raco test -e --heartbeat --timeout 600 -l \
-            tests/drracket/repl-test-debug \
-            tests/drracket/repl-test-debugprofile \
-            tests/drracket/repl-test-misc \
-            tests/drracket/repl-test-raw
       - run: |
           xvfb-run -a raco test -e --timeout 600 -l \
             tests/drracket/language-test
@@ -71,5 +64,12 @@ jobs:
             tests/drracket/errortrace-stacks \
             tests/drracket/online-compilation-zo-creation \
             tests/drracket/populate-compiled
+      - name: Running REPL tests
+        run: |
+          xvfb-run -a raco test -e --timeout 600 -l \
+            tests/drracket/repl-test-debug \
+            tests/drracket/repl-test-debugprofile \
+            tests/drracket/repl-test-misc \
+            tests/drracket/repl-test-raw
       - name: Testing drracket-tool-lib
         run: xvfb-run -a raco test -e -p drracket-tool-test
