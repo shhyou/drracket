@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         racket-version: ["current"]
-        racket-variant: ["regular", "CS"]
+        racket-variant: ["CS"]
     steps:
       - uses: actions/checkout@master
       - uses: Bogdanp/setup-racket@v0.10
