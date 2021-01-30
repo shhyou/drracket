@@ -29,20 +29,21 @@ jobs:
              raco pkg config catalogs >> catalog-config.txt
              sudo raco pkg config --set catalogs `cat catalog-config.txt`
              sudo raco pkg update -i --auto --no-setup drracket/ drracket-test/ drracket-tool/ drracket-tool-test/ drracket-tool-lib/ drracket-tool-doc/ drracket-plugin-lib/
+      - run: sudo raco setup
       - run: sudo raco setup --check-pkg-deps drracket tests/drracket
       - name: Check installed packages
         run: raco pkg show -a
       - name: Running compilation and instrumentation tests
         run: |
-          xvfb-run -a raco test -e --timeout 1800 -l \
-            tests/drracket/errortrace-stacks \
+          xvfb-run -a raco test -e --heartbeat --timeout 1800 -l \
+            tests/drracket/populate-compiled \
             tests/drracket/online-compilation-zo-creation \
-            tests/drracket/populate-compiled
+            tests/drracket/errortrace-stacks
       - run: |
-          xvfb-run -a raco test -e --heartbeat --timeout 300 -l \
+          xvfb-run -a raco test -e --heartbeat --timeout 600 -l \
             tests/drracket/language-test
       - run: |
-          xvfb-run -a raco test -e --heartbeat --timeout 300 -l \
+          xvfb-run -a raco test -e --heartbeat --timeout 600 -l \
             tests/drracket/hash-lang-extensions
       - name: Running REPL tests
         run: |
