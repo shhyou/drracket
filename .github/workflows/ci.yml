@@ -41,11 +41,11 @@ jobs:
           xvfb-run -a raco test -e -l \
             tests/drracket/syncheck-test \
             tests/drracket/syncheck-eval-compile-time
-      - name: Test drracket-tool-lib
+      - name: Testing drracket-tool-lib
         run: xvfb-run -a raco test -e -p drracket-tool-test
       - name: Running compilation and instrumentation tests
         run: |
-          xvfb-fun -a raco test -e --heartbeat --timeout 300 -l \
+          xvfb-run -a raco test -e --heartbeat --timeout 300 -l \
             tests/drracket/errortrace-stacks \
             tests/drracket/online-compilation-zo-creation \
             tests/drracket/populate-compiled
