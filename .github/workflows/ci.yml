@@ -32,15 +32,12 @@ jobs:
       - run: sudo raco setup
       - name: Check installed packages
         run: raco pkg show -a
-      - run: |
-          xvfb-run -a raco test -e --heartbeat --timeout 600 -l \
-            tests/drracket/hash-lang-extensions
       - name: Running REPL tests
         run: |
           xvfb-run -a raco test -e --heartbeat --timeout 600 -l \
-            tests/drracket/repl-test-debug
-            tests/drracket/repl-test-debugprofile
-            tests/drracket/repl-test-misc
+            tests/drracket/repl-test-debug \
+            tests/drracket/repl-test-debugprofile \
+            tests/drracket/repl-test-misc \
             tests/drracket/repl-test-raw
       - run: |
           xvfb-run -a raco test -e --timeout 600 -l \
@@ -60,8 +57,9 @@ jobs:
             tests/drracket/test-docs-complete
       - name: Running language tests
         run: |
-          xvfb-run -a raco test -e -l \
-            tests/drracket/module-lang-test
+          xvfb-run -a raco test -e --timeout 300 -l \
+            tests/drracket/module-lang-test \
+            tests/drracket/hash-lang-extensions
       - name: Running Check Syntax tests
         run: |
           xvfb-run -a raco test -e -l \
