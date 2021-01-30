@@ -1735,9 +1735,13 @@ the settings above should match r5rs
 ;; types an expression in the definitions window, executes it and tests the output
 ;; types an expression in the REPL and tests the output from the REPL.
 (define (test-expression expression defs-expected [repl-expected defs-expected])
+  (printf "test-expression: testing ~s\n" expression)
   (let* ([drs (wait-for-drracket-frame)]
+         [uu1 (printf ">> waited drracket frame\n")]
          [interactions-text (queue-callback/res (λ () (send drs get-interactions-text)))]
+         [uu2 (printf "got interaction text\n")]
          [definitions-text (queue-callback/res (λ () (send drs get-definitions-text)))]
+         [uu3 (printf "got definitions text\n")]
          [handle-insertion
           (lambda (item)
             (cond
@@ -1769,11 +1773,14 @@ the settings above should match r5rs
                "FAILED: ~s ~s expected ~s to match ~s, got ~s instead\n"]
               [(procedure? expected)
                "FAILED: ~s ~s expected ~s to pass predicate ~s, got ~s\n"]))])
+    (printf ">> clearing definitions\n")
     (clear-definitions drs)
+    (printf ">> inserting definitinos and expressions\n")
     (insert-in-definitions drs (defs-prefix))
     (cond
       [(pair? expression) (for-each handle-insertion expression)]
       [else (handle-insertion expression)])
+    (printf ">> running drracket\n")
     (do-execute drs)
     
     (let ([got
