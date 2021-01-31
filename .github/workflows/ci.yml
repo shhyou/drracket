@@ -58,7 +58,7 @@ jobs:
             tests/drracket/repl-test-raw
       - name: Running snip tests
         run: |
-          xvfb-run -a raco test -e --timeout 600 -l \
+          xvfb-run -a raco test -e -l \
             tests/drracket/snip-run-all \
             tests/drracket/snips
       - name: Running editor UI tests

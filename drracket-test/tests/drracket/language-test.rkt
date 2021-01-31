@@ -1735,7 +1735,6 @@ the settings above should match r5rs
 ;; types an expression in the definitions window, executes it and tests the output
 ;; types an expression in the REPL and tests the output from the REPL.
 (define (test-expression expression defs-expected [repl-expected defs-expected])
-  (log-drracket:test-info "test-expression: testing ~s\n" expression)
   (let* ([drs (wait-for-drracket-frame)]
          [interactions-text (queue-callback/res (λ () (send drs get-interactions-text)))]
          [definitions-text (queue-callback/res (λ () (send drs get-definitions-text)))]
