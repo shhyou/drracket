@@ -32,19 +32,6 @@ jobs:
       - run: sudo raco setup
       - name: Check installed packages
         run: raco pkg show -a
-      - name: Running snip tests
-        run: |
-          xvfb-run -a raco test -e --timeout 600 -l \
-            tests/drracket/snip-run-all \
-            tests/drracket/snips
-      - name: Running editor UI tests
-        run: |
-          xvfb-run -a raco test -e --heartbeat --timeout 300 -l \
-            tests/drracket/get-defs-test \
-            tests/drracket/save-hash-lang-line \
-            tests/drracket/insert-large-letters-test \
-            tests/drracket/image-and-comment-box \
-            tests/drracket/test-docs-complete
       - name: Running language tests
         run: |
           xvfb-run -a raco test -e --timeout 2400 -l \
@@ -69,5 +56,18 @@ jobs:
             tests/drracket/repl-test-debugprofile \
             tests/drracket/repl-test-misc \
             tests/drracket/repl-test-raw
+      - name: Running snip tests
+        run: |
+          xvfb-run -a raco test -e --timeout 600 -l \
+            tests/drracket/snip-run-all \
+            tests/drracket/snips
+      - name: Running editor UI tests
+        run: |
+          xvfb-run -a raco test -e -l \
+            tests/drracket/get-defs-test \
+            tests/drracket/save-hash-lang-line \
+            tests/drracket/insert-large-letters-test \
+            tests/drracket/image-and-comment-box \
+            tests/drracket/test-docs-complete
       - name: Testing drracket-tool-lib
         run: xvfb-run -a raco test -e -p drracket-tool-test
