@@ -32,9 +32,6 @@ jobs:
       - run: sudo raco setup
       - name: Check installed packages
         run: raco pkg show -a
-      - run: |
-          xvfb-run -a raco test -e --timeout 2400 -l \
-            tests/drracket/language-test
       - name: Running snip tests
         run: |
           xvfb-run -a raco test -e --timeout 600 -l \
@@ -50,9 +47,10 @@ jobs:
             tests/drracket/test-docs-complete
       - name: Running language tests
         run: |
-          xvfb-run -a raco test -e --timeout 300 -l \
+          xvfb-run -a raco test -e --timeout 2400 -l \
             tests/drracket/module-lang-test \
-            tests/drracket/hash-lang-extensions
+            tests/drracket/hash-lang-extensions \
+            tests/drracket/language-test
       - name: Running Check Syntax tests
         run: |
           xvfb-run -a raco test -e -l \
